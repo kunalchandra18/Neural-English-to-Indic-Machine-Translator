@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nmt"
+version = "1.0.0"
+description = "English to Bengali/Hindi neural machine translation (CS779 competition, IIT Kanpur)"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.4",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "tqdm",
+    "PyYAML",
+    "nltk",
+    "spacy>=3.7",
+    "indic-nlp-library",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

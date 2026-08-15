@@ -1,0 +1,29 @@
+language: Bengali
+lang_code: bn
+
+train_pkl: data/processed/train.pkl
+test_ids_pkl: data/processed/test_bn_ids.pkl
+test_sentences_pkl: data/processed/test_bn_sentences.pkl
+output_dir: runs/bengali
+
+seq_length: 55
+min_freq: 2
+val_split: 0.05
+seed: 42
+
+emb_size: 512
+nhead: 8
+hid_dim: 1024
+num_encoder_layers: 6
+num_decoder_layers: 6
+dropout: 0.15
+
+epochs: 15
+train_batch_size: 32
+inference_batch_size: 256
+label_smoothing: 0.1
+weight_decay: 0.01
+warmup_steps: 4000
+max_grad_norm: 1.0
+bleu_sentences: 40
+compile_model: true

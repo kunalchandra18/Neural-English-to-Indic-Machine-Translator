@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+data/
+runs/
+*.pth
+*.pkl
+*.npy
+answers*.csv
+
+.vscode/
+.idea/
+.DS_Store

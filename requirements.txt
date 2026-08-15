@@ -1,0 +1,9 @@
+torch>=2.4
+numpy
+pandas
+scikit-learn
+tqdm
+PyYAML
+nltk
+spacy>=3.7
+indic-nlp-library
