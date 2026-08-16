@@ -102,10 +102,13 @@ The two original training notebooks were byte-identical apart from the language 
 ## Usage
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-train.txt
 python -m spacy download en_core_web_sm
 pip install -e .
 ```
+
+(The root `requirements.txt` holds the demo's dependencies, because Streamlit Community
+Cloud installs that file from the repository root.)
 
 Tokenize the raw competition JSON:
 
@@ -166,9 +169,21 @@ ships the half-precision copies at roughly 60% of the size.
 
 ## Live demo
 
-[`app.py`](app.py) is a Gradio interface — enter an English sentence, pick Hindi or Bengali, get a translation. Run it locally with `python app.py`, or deploy it as a Hugging Face Space (SDK: **gradio**) using [`requirements-demo.txt`](requirements-demo.txt) as the Space's `requirements.txt`.
+Trained weights are published at
+**[huggingface.co/kunalchandra18/cs779-nmt-en-indic](https://huggingface.co/kunalchandra18/cs779-nmt-en-indic)**.
 
-It needs two files per language, both produced by `scripts/train.py`:
+Two front-ends share the loading and decoding logic in [`src/nmt/serve.py`](src/nmt/serve.py):
+
+| File | Framework | Use |
+|---|---|---|
+| [`streamlit_app.py`](streamlit_app.py) | Streamlit | `streamlit run streamlit_app.py` — this is what the hosted deployment runs |
+| [`app.py`](app.py) | Gradio | `python app.py`, after `pip install -r requirements-demo.txt` |
+
+Both look for local weights first and fall back to downloading from the model repo, so a
+deployment carries no checkpoints of its own. Only one language stays resident at a time —
+each model is ~270 MB once built, and free hosting tiers cap memory near 1 GB.
+
+Weights and vocabulary are loaded as a pair:
 
 ```
 runs/bengali/best_model_bn.pth   runs/bengali/vocab_bn.pkl

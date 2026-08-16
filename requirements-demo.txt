@@ -1,11 +1,12 @@
-# Dependencies for the Gradio demo (app.py).
-# On Hugging Face Spaces, copy these into the Space's requirements.txt.
+# Dependencies for the Gradio front-end (app.py). The hosted deployment uses the
+# Streamlit front-end and requirements.txt instead.
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch>=2.4
+torch==2.8.0+cpu
 numpy
 PyYAML
-gradio>=4.44,<5
-# gradio 4.x imports HfFolder, which huggingface_hub removed in 1.0.
 huggingface_hub>=0.24,<1.0
-spacy>=3.7
+spacy>=3.7,<3.8
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+
+# gradio 4.x imports HfFolder, which huggingface_hub removed in 1.0.
+gradio>=4.44,<5

@@ -1,9 +1,15 @@
-torch>=2.4
+# Dependencies for the hosted Streamlit demo.
+# Streamlit Community Cloud installs this file from the repository root.
+# Training dependencies live in requirements-train.txt.
+
+# The +cpu build keeps the install near 200 MB; the default PyPI wheel bundles CUDA
+# and will not fit in a free hosting tier.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.8.0+cpu
+
 numpy
-pandas
-scikit-learn
-tqdm
 PyYAML
-nltk
-spacy>=3.7
-indic-nlp-library
+streamlit>=1.36
+huggingface_hub>=0.24,<1.0
+spacy>=3.7,<3.8
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl

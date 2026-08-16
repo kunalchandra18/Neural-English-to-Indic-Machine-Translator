@@ -1,0 +1,12 @@
+# Dependencies for preprocessing and training.
+# Install the torch build that matches your CUDA version; the unpinned wheel below
+# resolves to whatever PyPI serves for your platform.
+torch>=2.4
+numpy
+pandas
+scikit-learn
+tqdm
+PyYAML
+nltk
+spacy>=3.7
+indic-nlp-library
