@@ -129,6 +129,41 @@ Training was done on a single Kaggle T4. Mixed precision and `torch.compile` are
 
 ---
 
+## Retrained results
+
+The competition checkpoints were unusable (see [Live demo](#live-demo)), so both pairs were
+retrained from this code on a Kaggle P100 — 15 epochs each, 150 minutes total at 8.1
+steps/sec. Vocabularies came out at 31920/37921 (Bengali) and 33366/31680 (Hindi),
+matching the sizes reported for the original submission.
+
+Hindi, final epochs — the trainer keeps the best-BLEU checkpoint, not the last one:
+
+| Epoch | Loss | BLEU |
+|-------|--------|--------|
+| 11    | 3.2906 | 0.2235 |
+| 12    | 3.2123 | **0.2334** |
+| 13    | 3.1433 | 0.2188 |
+| 14    | 3.0832 | 0.2208 |
+| 15    | 3.0295 | 0.2205 |
+
+BLEU is measured on 40 validation sentences (`bleu_sentences`), so it indicates the trend
+rather than a headline score. Loss keeps falling after epoch 12 while BLEU flattens, which
+is where mild overfitting starts.
+
+Sample output:
+
+| English | Hindi | Bengali |
+|---------|-------|---------|
+| The weather is very pleasant today. | आज मौसम बहुत ही सुखद है | আজকের আবহাওয়া খুব সুন্দর |
+| The train arrives at the station in ten minutes. | स्टेशन में ट्रेन दस मिनट में आती है | দশ মিনিটের মধ্যে ট্রেন স্টেশনে আসে । |
+
+Everyday sentences come out well. Proper nouns do not: "My name is Kunal" mistranslates
+*Kunal*, since it falls outside a vocabulary built with `min_freq: 2` — the same
+out-of-vocabulary weakness the report identifies as the main error source.
+
+The fp16 checkpoints decode identically to fp32 on every sentence tested, so the demo
+ships the half-precision copies at roughly 60% of the size.
+
 ## Live demo
 
 [`app.py`](app.py) is a Gradio interface — enter an English sentence, pick Hindi or Bengali, get a translation. Run it locally with `python app.py`, or deploy it as a Hugging Face Space (SDK: **gradio**) using [`requirements-demo.txt`](requirements-demo.txt) as the Space's `requirements.txt`.
