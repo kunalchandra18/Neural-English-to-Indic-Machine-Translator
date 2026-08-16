@@ -87,6 +87,7 @@ src/nmt/
     ├── english.py         # spaCy pipeline + junk filtering
     └── indic.py           # Indic normalization + tokenization
 
+app.py                     # Gradio demo (English -> Bengali / Hindi)
 scripts/                   # preprocess.py, train.py, translate.py
 configs/                   # bengali.yaml, hindi.yaml
 notebooks/                 # original Kaggle notebooks, as submitted
@@ -127,6 +128,19 @@ python scripts/translate.py --config configs/bengali.yaml --out answers_bn.csv
 Training was done on a single Kaggle T4. Mixed precision and `torch.compile` are on by default; set `compile_model: false` in the config if your PyTorch build doesn't support it.
 
 ---
+
+## Live demo
+
+[`app.py`](app.py) is a Gradio interface — enter an English sentence, pick Hindi or Bengali, get a translation. Run it locally with `python app.py`, or deploy it as a Hugging Face Space (SDK: **gradio**) using [`requirements-demo.txt`](requirements-demo.txt) as the Space's `requirements.txt`.
+
+It needs two files per language, both produced by `scripts/train.py`:
+
+```
+runs/bengali/best_model_bn.pth   runs/bengali/vocab_bn.pkl
+runs/hindi/best_model_hi.pth     runs/hindi/vocab_hi.pkl
+```
+
+**The vocabulary file is not optional.** A checkpoint is meaningless without the exact word→index mapping it was trained against — the embedding rows are addressed by index, so a vocabulary that differs by even one token decodes to noise. The original competition notebooks rebuilt vocabularies in memory and never saved them, which left those checkpoints unusable; `scripts/train.py` writes `vocab_{code}.pkl` next to every checkpoint so that cannot happen again.
 
 ## What I'd do differently
 

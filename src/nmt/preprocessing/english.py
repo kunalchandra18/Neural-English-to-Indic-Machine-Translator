@@ -51,9 +51,20 @@ def _keep(token):
     return None
 
 
+_nlp = None
+
+
+def get_nlp():
+    """Load the spaCy pipeline once; reloading per call dominates serving latency."""
+    global _nlp
+    if _nlp is None:
+        _nlp = spacy.load("en_core_web_sm", disable=["parser", "ner", "tagger", "lemmatizer"])
+        _nlp.max_length = 2_000_000
+    return _nlp
+
+
 def tokenize_corpus(texts, batch_size=1000, n_process=4):
-    nlp = spacy.load("en_core_web_sm", disable=["parser", "ner", "tagger", "lemmatizer"])
-    nlp.max_length = 2_000_000
+    nlp = get_nlp()
     texts = [clean(t) for t in texts]
 
     out = []
