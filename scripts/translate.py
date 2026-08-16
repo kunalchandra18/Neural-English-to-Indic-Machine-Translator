@@ -3,7 +3,10 @@
     python scripts/translate.py --config configs/bengali.yaml --out answers_bn.csv
 """
 import argparse
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import pandas as pd
 import torch
