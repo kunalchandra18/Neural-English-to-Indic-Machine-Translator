@@ -119,12 +119,11 @@ src/nmt/
     ├── english.py         # spaCy pipeline + junk filtering
     └── indic.py           # Indic normalization + tokenization
 
-streamlit_app.py           # hosted demo
-app.py                     # alternative Gradio front-end
+streamlit_app.py           # the demo interface
 scripts/                   # preprocess.py, train.py, translate.py
 configs/                   # bengali.yaml, hindi.yaml
 notebooks/                 # original Kaggle notebooks + retraining notebook
-report/                    # report source and PDF
+report/                    # technical report (PDF)
 predictions/               # best-model test predictions
 ```
 
