@@ -71,7 +71,10 @@ def load_language(language):
 
     model = build_model(cfg, len(src_vocab), len(tgt_vocab)).to(DEVICE)
     # fp16 checkpoints are upcast by load_state_dict; they decode identically to fp32.
-    model.load_state_dict(torch.load(weights_path, map_location=DEVICE))
+    # weights_only=True is explicit rather than inherited: the default flipped in torch
+    # 2.6, and this file may load a checkpoint fetched over the network, where unpickling
+    # arbitrary objects would be a code-execution path. A state dict needs nothing more.
+    model.load_state_dict(torch.load(weights_path, map_location=DEVICE, weights_only=True))
     model.eval()
 
     _loaded[language] = (model, src_vocab, tgt_vocab, cfg)

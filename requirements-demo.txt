@@ -1,7 +1,7 @@
 # Dependencies for the Gradio front-end (app.py). The hosted deployment uses the
 # Streamlit front-end and requirements.txt instead.
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.8.0+cpu
+torch>=2.9,<3
 numpy
 PyYAML
 huggingface_hub>=0.24,<1.0

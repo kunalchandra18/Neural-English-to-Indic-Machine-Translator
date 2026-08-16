@@ -3,9 +3,12 @@
 # Training dependencies live in requirements-train.txt.
 
 # The +cpu build keeps the install near 200 MB; the default PyPI wheel bundles CUDA
-# and will not fit in a free hosting tier.
+# and will not fit in a free hosting tier. Pin the local version, not an exact release:
+# PyTorch retires old wheels, and an exact pin breaks the build once it is dropped.
+# A local version sorts above the same base version (PEP 440), so the +cpu wheel wins
+# over the CUDA wheel PyPI serves under the same number.
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.8.0+cpu
+torch>=2.9,<3
 
 numpy
 PyYAML
