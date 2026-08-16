@@ -1,16 +1,16 @@
 # English → Bengali / Hindi Neural Machine Translation
 
-A Transformer-based translation system built from scratch — no pretrained translation models — for the **CS779 (Statistical Natural Language Processing)** course competition at IIT Kanpur.
+A neural machine translation system built from scratch — no pretrained translation models, no fine-tuning. Trained end to end on parallel text for two low-resource language pairs.
 
-Four weeks of architecture search (GRU → Bi-LSTM with attention → vanilla Transformer → stacked Bi-GRU) converged on a **Pre-LN Transformer with tied embeddings**, which is what this repository implements.
+An architecture search across four designs (GRU → Bi-LSTM with attention → vanilla Transformer → stacked Bi-GRU) converged on a **Pre-LN Transformer with tied embeddings**, which is what this repository implements.
 
-**[▶ Try the live demo](#)** · **[Model weights](https://huggingface.co/kunalchandra18/cs779-nmt-en-indic)** · **[Report](report/NMT_Report.pdf)**
+**[▶ Try the live demo](https://neural-english-to-indic-machine-translator.streamlit.app)** · **[Model weights](https://huggingface.co/kunalchandra18/cs779-nmt-en-indic)** · **[Technical report](report/NMT_Report.pdf)**
 
 ---
 
 ## Try it
 
-**Online** — no installation, pick Hindi or Bengali and type an English sentence.
+**[neural-english-to-indic-machine-translator.streamlit.app](https://neural-english-to-indic-machine-translator.streamlit.app)** — no installation, pick Hindi or Bengali and type an English sentence.
 
 **Locally:**
 
