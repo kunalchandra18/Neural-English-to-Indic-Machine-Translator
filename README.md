@@ -163,7 +163,6 @@ A late run of the same architecture at 15 epochs (rather than 8) scored material
 
 ## Author
 
-**Kunal Chandra** (240580) — Indian Institute of Technology Kanpur
-CS779: Statistical Natural Language Processing, 2025
+**Kunal Chandra** (240580) — Indian Institute of Technology Kanpur, 2025
 
 Licensed under [MIT](LICENSE).
