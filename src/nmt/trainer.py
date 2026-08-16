@@ -31,11 +31,27 @@ def _unwrap(model):
     return getattr(model, "_orig_mod", model)
 
 
+def _should_compile(cfg, device):
+    """torch.compile lowers through Triton, which needs CUDA capability 7.0+.
+
+    Kaggle hands out Tesla P100s (6.0), where compiling raises on the first batch.
+    Training there is perfectly fine uncompiled, so warn and carry on rather than die.
+    """
+    if not cfg.compile_model or device.type != "cuda":
+        return False
+    major, minor = torch.cuda.get_device_capability(device)
+    if major < 7:
+        print(f"torch.compile disabled: {torch.cuda.get_device_name(device)} is compute "
+              f"capability {major}.{minor}, Triton requires 7.0+. Training uncompiled.")
+        return False
+    return True
+
+
 class Trainer:
     def __init__(self, model, cfg, device):
         self.cfg = cfg
         self.device = device
-        self.model = torch.compile(model) if cfg.compile_model else model
+        self.model = torch.compile(model) if _should_compile(cfg, device) else model
         self.criterion = nn.CrossEntropyLoss(ignore_index=PAD_IDX, label_smoothing=cfg.label_smoothing)
         self.optimizer = optim.AdamW(self.model.parameters(), lr=1.0, betas=(0.9, 0.98),
                                      eps=1e-9, weight_decay=cfg.weight_decay)
