@@ -5,8 +5,9 @@ torch>=2.9,<3
 numpy
 PyYAML
 huggingface_hub>=0.24,<1.0
-spacy>=3.7,<3.8
-en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+# Needs Python 3.10+; the model wheel must track spaCy's minor version.
+spacy>=3.8.10,<3.9
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 
 # gradio 4.x imports HfFolder, which huggingface_hub removed in 1.0.
 gradio>=4.44,<5
