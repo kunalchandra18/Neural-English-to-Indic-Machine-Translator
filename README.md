@@ -39,7 +39,7 @@ Everyday sentences translate well. Proper nouns often do not — a `min_freq: 2`
 
 ### Test set
 
-| Model | BLEU | chrF | ROUGE-L |
+| Model | BLEU | chrF++ | ROUGE-L |
 |---|---|---|---|
 | Pre-LN Transformer + BPE | 0.059 | 0.192 | 0.218 |
 | **Pre-LN Transformer, word-level (submitted)** | **0.162** | **0.417** | **0.445** |
@@ -48,14 +48,14 @@ The BPE variant scored *lower* despite a lower training loss — the tokenizer p
 
 ### Validation set, by week
 
-| Week | Architecture | BLEU | chrF | ROUGE-L |
+| Week | Architecture | BLEU | chrF++ | ROUGE-L |
 |---|---|---|---|---|
 | 1 | Vanilla GRU (baseline) | 0.058 | 0.233 | 0.319 |
 | 2 | Bi-LSTM + Bahdanau attention | 0.078 | 0.264 | 0.277 |
 | 3 | Vanilla Transformer (Post-LN) | 0.073 | 0.280 | 0.340 |
 | 4 | Stacked Bi-GRU + global attention | 0.102 | 0.326 | 0.362 |
 
-Week 3 is the interesting row: the Transformer beat the Bi-LSTM on chrF and ROUGE-L while scoring *lower* on BLEU. BLEU rewards exact n-gram matches, so a model that is broadly right but phrased differently can move the three metrics in opposite directions.
+Week 3 is the interesting row: the Transformer beat the Bi-LSTM on chrF++ and ROUGE-L while scoring *lower* on BLEU. BLEU rewards exact n-gram matches, so a model that is broadly right but phrased differently can move the three metrics in opposite directions.
 
 The full write-up, including error analysis, is in [`report/NMT_Report.pdf`](report/NMT_Report.pdf).
 
